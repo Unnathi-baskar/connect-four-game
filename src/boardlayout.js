@@ -93,38 +93,36 @@ function isWinVertical(column, index, columns)
 
 function isWinHorizontal(index, columns) 
 {
-    function isWinHorizontal(index, columns) 
+    let count = 1; 
+    for (let i = 1; i < 4; i++) 
     {
-        let count = 1; 
-        for (let i = 1; i < 4; i++) 
+        const leftIndex = index - i;
+        if (leftIndex >= 0 && Math.floor(leftIndex / columns) === Math.floor(index / columns) && squares[leftIndex].classList.contains(playerColors[turn])) 
         {
-            const leftIndex = index - i;
-            if (leftIndex >= 0 && Math.floor(leftIndex / columns) === Math.floor(index / columns) && squares[leftIndex].classList.contains(playerColors[turn])) 
-            {
-                count++;
-            } 
-            else 
-            {
-                break;
-            }
-        }
-        for (let i = 1; i < 4; i++) 
+            count++;
+        } 
+        else 
         {
-            const rightIndex = index + i;
-            if (rightIndex < squares.length && Math.floor(rightIndex / columns) === Math.floor(index / columns) && squares[rightIndex].classList.contains(playerColors[turn])) 
-            {
-                count++;
-            } 
-            else 
-            {
-                break;
-            }
+            break;
         }
+    }
+    for (let i = 1; i < 4; i++) 
+    {
+        const rightIndex = index + i;
+        if (rightIndex < squares.length && Math.floor(rightIndex / columns) === Math.floor(index / columns) && squares[rightIndex].classList.contains(playerColors[turn])) 
+        {
+            count++;
+        } 
+        else 
+        {
+            break;
+        }
+    }
     return count >= 4;
-    }  
-}
+}  
 
-function isWinDiagonal1(index, columns, rows) {
+function isWinDiagonal1(index, columns, rows) 
+{
     let stepsRight = 0;
     while ( index - (stepsRight + 1) * (columns - 1) >= 0 && stepsRight < 4 && squares[index - (stepsRight + 1) * (columns - 1)] && squares[index - (stepsRight + 1) * (columns - 1)].classList.contains(playerColors[turn])) 
     {
