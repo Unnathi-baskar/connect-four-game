@@ -1,0 +1,47 @@
+*,::before, ::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --divwidth: 40px;
+  --divheight: 40px;
+}
+
+.h2 {
+
+  text-align: center;
+  margin: 2rem 0;
+  color: rgb(102, 0, 58); 
+  font-size: xx-large;
+}
+
+#game {
+  margin: 0 auto;
+}
+
+
+#turn {
+  font-size: 2rem;
+  margin: 5rem 19rem;
+}
+
+#board {
+  border: 1px solid red;
+  width: calc(8*var(--divwidth));
+  height: calc(8*var(--divheight));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(8, var(--divwidth)); 
+  grid-template-rows: repeat(8, var(--divheight)); 
+  overflow: hidden;
+}
+
+.cell {
+  height: var(--divheight);
+  width: var(--divwidth);
+  border: 1px solid blue;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background-color: white; 
+}
