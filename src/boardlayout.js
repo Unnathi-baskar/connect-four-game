@@ -71,58 +71,47 @@ function isWin(column, index, columns, rows)
 
 function isWinVertical(column, index, columns) 
 {
-    let count = 0;
-    const start = column; 
-    for (let i = start; i < start + 4 * columns && i < squares.length; i += columns) 
+    let n = 0;
+    for (let i = index; i < squares.length; i += columns) 
     {
-        if (squares[i].classList.contains(playerColors[turn])) 
+        if (squares[i] && squares[i].classList.contains(playerColors[turn])) 
         {
-            count++;
-            if (count === 4) 
+            n++;
+            if (n === 4) 
             {
-                return true;
+                return true; 
             }
-        } 
+        }
         else 
         {
-            count = 0;
+            break; 
         }
     }
-    return false;
+    return false; 
 }
+
 
 function isWinHorizontal(index, columns) 
 {
-    let count = 1; 
-    for (let i = 1; i < 4; i++) 
+    let stepsRight = 0;
+    while ( (index + stepsRight + 1) % columns !== 0 && stepsRight < 4 && squares[index + stepsRight + 1] && squares[index + stepsRight + 1].classList.contains(playerColors[turn])) 
     {
-        const leftIndex = index - i;
-        if (leftIndex >= 0 && Math.floor(leftIndex / columns) === Math.floor(index / columns) && squares[leftIndex].classList.contains(playerColors[turn])) 
-        {
-            count++;
-        } 
-        else 
-        {
-            break;
-        }
+        stepsRight += 1;
     }
-    for (let i = 1; i < 4; i++) 
-    {
-        const rightIndex = index + i;
-        if (rightIndex < squares.length && Math.floor(rightIndex / columns) === Math.floor(index / columns) && squares[rightIndex].classList.contains(playerColors[turn])) 
-        {
-            count++;
-        } 
-        else 
-        {
-            break;
-        }
-    }
-    return count >= 4;
-}  
 
-function isWinDiagonal1(index, columns, rows) 
-{
+    if (stepsRight === 3) 
+    {
+        return true;
+    }
+    let stepsLeft = 0;
+    while(index - stepsLeft - 1 >= 0 && (index - stepsLeft - 1) % columns !== columns - 1 && stepsLeft < 3 - stepsRight && squares[index - stepsLeft - 1] && squares[index - stepsLeft - 1].classList.contains(playerColors[turn])) 
+    {
+        stepsLeft += 1;
+    }
+    return stepsLeft + stepsRight + 1 >= 4;
+}
+
+function isWinDiagonal1(index, columns, rows) {
     let stepsRight = 0;
     while ( index - (stepsRight + 1) * (columns - 1) >= 0 && stepsRight < 4 && squares[index - (stepsRight + 1) * (columns - 1)] && squares[index - (stepsRight + 1) * (columns - 1)].classList.contains(playerColors[turn])) 
     {
